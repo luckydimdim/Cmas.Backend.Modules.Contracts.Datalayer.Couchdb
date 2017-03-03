@@ -29,7 +29,7 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
 
                 var result = await client.Entities.PostAsync(doc);
 
-                commandContext.id = 1;
+                commandContext.id = result.Content.Id;
 
                 return commandContext;
             }

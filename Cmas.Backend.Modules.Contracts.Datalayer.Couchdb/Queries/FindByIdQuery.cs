@@ -1,17 +1,42 @@
 ﻿using Cmas.Backend.Infrastructure.Domain.Queries;
 using Cmas.Backend.Modules.Contracts.Criteria;
+using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 using Cmas.Backend.Modules.Contracts.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MyCouch;
+using System.Threading.Tasks;
 
 namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
 {
-    public class FindByIdQuery : IQuery<FindById, Contract>
+    public class FindByIdQuery : IQuery<FindById, Task<Contract>>
     {
-        public Contract Ask(FindById criterion)
+
+        public async Task<Contract> Ask(FindById criterion)
         {
-            return new Contract{ Name = criterion.Id.ToString()};
+            using (var client = new MyCouchClient("http://cmas-backend:backend967@cm-ylng-msk-03:5984", "cmas"))
+            {
+
+                var result = new Contract();
+
+                var dto = await client.Entities.GetAsync<ContractDto>(criterion.Id);
+
+                var content = dto.Content;
+
+                result.Name = content.Name;
+                result.Number = content.Number;
+                result.StartDate = content.StartDate;
+                result.FinishDate = content.FinishDate;
+                result.ContractorName = content.ContractorName;
+                result.Currency = content.Currency;
+                result.Amount = content.Amount;
+                result.VatIncluded = content.VatIncluded;
+                result.ConstructionObjectName = content.ConstructionObjectName;
+                result.ConstructionObjectTitleName = content.ConstructionObjectTitleName;
+                result.ConstructionObjectTitleCode = content.ConstructionObjectTitleCode;
+                result.Description = content.Description;
+
+                return result;
+            }
+
         }
     }
 }
