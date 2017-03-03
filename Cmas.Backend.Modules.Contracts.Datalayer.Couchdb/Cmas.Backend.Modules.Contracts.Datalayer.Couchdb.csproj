@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cmas.Backend.Infrastructure.Domain" Version="1.0.0" />
+    <PackageReference Include="Cmas.Backend.Modules.Contracts" Version="1.0.0" />
+    <PackageReference Include="couch_client.backend" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+</Project>
