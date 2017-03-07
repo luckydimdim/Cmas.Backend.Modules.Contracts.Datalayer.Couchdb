@@ -3,5 +3,5 @@
 :: nuget push Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.1.0.4.nupkg -Source http://cm-ylng-msk-04/nuget/nuget
 
 cd .\Cmas.Backend.Modules.Contracts.Datalayer.Couchdb\bin\Debug\
-nuget push Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.1.0.6.nupkg -Source http://cm-ylng-msk-04/nuget/nuget
+nuget push Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.1.0.7.nupkg -Source http://cm-ylng-msk-04/nuget/nuget
 pause

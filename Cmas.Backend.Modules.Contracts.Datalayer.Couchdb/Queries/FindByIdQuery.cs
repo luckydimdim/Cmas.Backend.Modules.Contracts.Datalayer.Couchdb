@@ -21,6 +21,7 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
 
                 var content = dto.Content;
 
+                result.Id = content._id;
                 result.Name = content.Name;
                 result.Number = content.Number;
                 result.StartDate = content.StartDate;

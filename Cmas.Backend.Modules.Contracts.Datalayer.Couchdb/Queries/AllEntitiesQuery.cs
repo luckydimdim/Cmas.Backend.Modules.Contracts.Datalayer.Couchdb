@@ -5,6 +5,7 @@ using MyCouch;
 using MyCouch.Requests;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 
 
 namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
@@ -19,11 +20,27 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
 
                 var query = new QueryViewRequest("contracts", "all");
 
-                var viewResult = await client.Views.QueryAsync<Contract>(query);
+                var viewResult = await client.Views.QueryAsync<ContractDto>(query);
 
                 foreach (var row in viewResult.Rows)
                 {
-                    result.Add(row.Value);
+                    Contract c = new Contract();
+
+                    c.Id = row.Value._id;
+                    c.Name = row.Value.Name;
+                    c.Number = row.Value.Number;
+                    c.StartDate = row.Value.StartDate;
+                    c.FinishDate = row.Value.FinishDate;
+                    c.ContractorName = row.Value.ContractorName;
+                    c.Currency = row.Value.Currency;
+                    c.Amount = row.Value.Amount;
+                    c.VatIncluded = row.Value.VatIncluded;
+                    c.ConstructionObjectName = row.Value.ConstructionObjectName;
+                    c.ConstructionObjectTitleName = row.Value.ConstructionObjectTitleName;
+                    c.ConstructionObjectTitleCode = row.Value.ConstructionObjectTitleCode;
+                    c.Description = row.Value.Description;
+
+                    result.Add(c);
                 }
 
                 return result;
