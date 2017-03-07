@@ -62,7 +62,7 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
 
                 if (commandContext.ConstructionObjectTitleName != null)
                 {
-                    existingDoc.ConstructionObjectName = commandContext.ConstructionObjectTitleName;
+                    existingDoc.ConstructionObjectTitleName = commandContext.ConstructionObjectTitleName;
                 }
 
                 if (commandContext.ConstructionObjectTitleCode != null)
