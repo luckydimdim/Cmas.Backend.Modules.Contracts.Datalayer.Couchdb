@@ -15,8 +15,20 @@ namespace ConsoleTests
         static void Main(string[] args)
         {
 
-            FindByIdQueryTest().Wait();
-            FindAllEntitiesTest().Wait();
+            //FindByIdQueryTest().Wait();
+            //FindAllEntitiesTest().Wait();
+
+            try
+            {
+                UpdateContractCommand().Wait();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+          
+
             Console.ReadKey();
         }
 
@@ -63,10 +75,17 @@ namespace ConsoleTests
             return true;
         }
 
-        static void CreateContractCommand()
+        static async Task<bool> UpdateContractCommand()
         {
-            CreateContractCommandContext commandContext = new CreateContractCommandContext();
-            CreateContractCommand createContractCommand = new CreateContractCommand();
+            var commandContext = new UpdateContractCommandContext();
+            var createContractCommand = new UpdateContractCommand();
+
+            commandContext.Name = "new name";
+            commandContext.id = "26270cfa2422b2c4ebf158285e0200a5";
+
+            var result = await createContractCommand.Execute(commandContext);
+
+            return true;
         }
     }
 }

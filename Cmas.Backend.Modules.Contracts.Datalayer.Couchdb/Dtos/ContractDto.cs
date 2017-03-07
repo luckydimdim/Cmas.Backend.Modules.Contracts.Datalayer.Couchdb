@@ -5,6 +5,7 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos
     public class ContractDto
     {
         public String _id;
+        public String _rev;
         public String Name;
         public String Number;
         public String StartDate;
