@@ -14,20 +14,20 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-
-            //FindByIdQueryTest().Wait();
-            //FindAllEntitiesTest().Wait();
-
             try
             {
-                UpdateContractCommand().Wait();
+                //FindByIdQueryTest().Wait();
+                //FindAllEntitiesTest().Wait();
+                //UpdateContractCommand().Wait();
+
+                DeleteContractCommand().Wait();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-          
+         
 
             Console.ReadKey();
         }
@@ -84,6 +84,18 @@ namespace ConsoleTests
             commandContext.id = "26270cfa2422b2c4ebf158285e0200a5";
 
             var result = await createContractCommand.Execute(commandContext);
+
+            return true;
+        }
+
+        static async Task<bool>DeleteContractCommand()
+        {
+            var commandContext = new DeleteContractCommandContext();
+            var command = new DeleteContractCommand();
+
+            commandContext.id = "26270cfa2422b2c4ebf158285e0241e5";
+
+            var result = await command.Execute(commandContext);
 
             return true;
         }
