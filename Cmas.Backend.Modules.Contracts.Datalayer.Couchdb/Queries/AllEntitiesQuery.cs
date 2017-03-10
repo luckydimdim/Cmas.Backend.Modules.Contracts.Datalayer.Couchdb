@@ -4,6 +4,7 @@ using Cmas.Backend.Modules.Contracts.Entities;
 using MyCouch;
 using MyCouch.Requests;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 
@@ -22,7 +23,7 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
 
                 var viewResult = await client.Views.QueryAsync<ContractDto>(query);
 
-                foreach (var row in viewResult.Rows)
+                foreach (var row in viewResult.Rows.OrderByDescending(s=>s.Value.CreatedAt))
                 {
                     Contract c = new Contract();
 

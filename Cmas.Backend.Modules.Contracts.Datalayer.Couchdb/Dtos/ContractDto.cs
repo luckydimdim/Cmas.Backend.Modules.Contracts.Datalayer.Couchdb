@@ -18,5 +18,8 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos
         public String ConstructionObjectTitleName;
         public String ConstructionObjectTitleCode;
         public String Description;
+        public string Status;
+        public DateTime UpdatedAt;
+        public DateTime CreatedAt;
     }
 }

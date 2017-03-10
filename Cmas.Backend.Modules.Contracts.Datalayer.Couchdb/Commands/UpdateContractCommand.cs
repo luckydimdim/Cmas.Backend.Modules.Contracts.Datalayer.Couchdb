@@ -2,6 +2,7 @@
 using Cmas.Backend.Modules.Contracts.CommandsContexts;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 using MyCouch;
+using System;
 using System.Threading.Tasks;
 
 namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
@@ -74,6 +75,15 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
                 {
                     existingDoc.Description = commandContext.Description;
                 }
+
+                existingDoc.UpdatedAt = DateTime.Now;
+
+                if (existingDoc.Status == "empty")
+                {
+                    existingDoc.CreatedAt = DateTime.Now;
+                }
+
+                existingDoc.Status = "published";
 
                 var result = await client.Entities.PutAsync<ContractDto>(existingDoc._id, existingDoc);
 

@@ -1,8 +1,11 @@
-﻿using Cmas.Backend.Infrastructure.Domain.Commands;
+﻿using System;
+using System.Linq;
+using Cmas.Backend.Infrastructure.Domain.Commands;
 using Cmas.Backend.Modules.Contracts.CommandsContexts;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 using MyCouch;
 using System.Threading.Tasks;
+using MyCouch.Requests;
 
 namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
 {
@@ -10,26 +13,33 @@ namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands
     {
         public async Task<CreateContractCommandContext> Execute(CreateContractCommandContext commandContext)
         {
-            using (var client = new MyCouchClient("http://cmas-backend:backend967@cm-ylng-msk-03:5984", "cmas"))
+            using (var store = new MyCouchStore("http://cmas-backend:backend967@cm-ylng-msk-03:5984", "cmas"))
             {
-                var doc = new ContractDto();
 
-                doc.Name = commandContext.Name;
-                doc.Number = commandContext.Number;
-                doc.StartDate = commandContext.StartDate;
-                doc.FinishDate = commandContext.FinishDate;
-                doc.ContractorName = commandContext.ContractorName;
-                doc.Currency = commandContext.Currency;
-                doc.Amount = commandContext.Amount;
-                doc.VatIncluded = commandContext.VatIncluded;
-                doc.ConstructionObjectName = commandContext.ConstructionObjectName;
-                doc.ConstructionObjectTitleName = commandContext.ConstructionObjectTitleName;
-                doc.ConstructionObjectTitleCode = commandContext.ConstructionObjectTitleCode;
-                doc.Description = commandContext.Description;
+                var query = new QueryViewRequest("contracts", "empty");
 
-                var result = await client.Entities.PostAsync(doc);
+                var viewResult = await store.Client.Views.QueryAsync(query);
 
-                commandContext.id = result.Id;
+                var firstRow = viewResult.Rows.FirstOrDefault();
+
+                if (firstRow != null)
+                {
+                    commandContext.id = firstRow.Id;
+                }
+                else
+                {
+                    var doc = new ContractDto();
+
+                    doc.UpdatedAt = DateTime.Now;
+                    doc.CreatedAt = DateTime.Now;
+                    doc.Status = "empty";
+
+                    var result = await store.Client.Entities.PostAsync(doc);
+
+                    commandContext.id = result.Id;
+                }
+
+               
 
                 return commandContext;
             }

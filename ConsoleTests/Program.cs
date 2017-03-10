@@ -17,10 +17,10 @@ namespace ConsoleTests
             try
             {
                 //FindByIdQueryTest().Wait();
-                //FindAllEntitiesTest().Wait();
+                FindAllEntitiesTest().Wait();
                 //UpdateContractCommand().Wait();
-
-                DeleteContractCommand().Wait();
+                //DeleteContractCommand().Wait();
+                //CreateContractCommand().Wait();
             }
             catch (Exception e)
             {
@@ -60,16 +60,9 @@ namespace ConsoleTests
             AllEntities criterion = null;
             IEnumerable<Contract> result = null;
 
-            try
-            {
-                result = await query.Ask(criterion);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
-
+           
+               result = await query.Ask(criterion);
+           
             Console.WriteLine(result.Count());
 
             return true;
@@ -94,6 +87,16 @@ namespace ConsoleTests
             var command = new DeleteContractCommand();
 
             commandContext.id = "26270cfa2422b2c4ebf158285e0241e5";
+
+            var result = await command.Execute(commandContext);
+
+            return true;
+        }
+
+        static async Task<bool> CreateContractCommand()
+        {
+            var commandContext = new CreateContractCommandContext();
+            var command = new CreateContractCommand();
 
             var result = await command.Execute(commandContext);
 
