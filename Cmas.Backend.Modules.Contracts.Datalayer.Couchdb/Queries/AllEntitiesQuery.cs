@@ -1,5 +1,4 @@
 ﻿using Cmas.Backend.Infrastructure.Domain.Queries;
-using Cmas.Backend.Modules.Contracts.Criteria;
 using Cmas.Backend.Modules.Contracts.Entities;
 using MyCouch;
 using MyCouch.Requests;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
-
+using Cmas.Backend.Infrastructure.Domain.Criteria;
 
 namespace Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries
 {

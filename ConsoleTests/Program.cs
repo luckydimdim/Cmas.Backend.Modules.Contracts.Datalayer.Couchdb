@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cmas.Backend.Modules.Contracts.CommandsContexts;
-using Cmas.Backend.Modules.Contracts.Criteria;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Commands;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Queries;
 using Cmas.Backend.Modules.Contracts.Entities;
+using Cmas.Backend.Infrastructure.Domain.Criteria;
 
 namespace ConsoleTests
 {
@@ -36,7 +36,7 @@ namespace ConsoleTests
         static async Task<bool> FindByIdQueryTest()
         {
             FindByIdQuery findByIdQuery = new FindByIdQuery();
-            FindById criterion = new FindById{Id = "26270cfa2422b2c4ebf158285e027730" };
+            FindById criterion = new FindById("26270cfa2422b2c4ebf158285e027730");
             Contract result = null;
 
             try
@@ -57,11 +57,10 @@ namespace ConsoleTests
         static async Task<bool> FindAllEntitiesTest()
         {
             AllEntitiesQuery query = new AllEntitiesQuery();
-            AllEntities criterion = null;
             IEnumerable<Contract> result = null;
 
            
-               result = await query.Ask(criterion);
+               result = await query.Ask(new AllEntities());
            
             Console.WriteLine(result.Count());
 

@@ -1,5 +1,5 @@
-﻿using Cmas.Backend.Infrastructure.Domain.Queries;
-using Cmas.Backend.Modules.Contracts.Criteria;
+﻿using Cmas.Backend.Infrastructure.Domain.Criteria;
+using Cmas.Backend.Infrastructure.Domain.Queries;
 using Cmas.Backend.Modules.Contracts.Datalayer.Couchdb.Dtos;
 using Cmas.Backend.Modules.Contracts.Entities;
 using MyCouch;
